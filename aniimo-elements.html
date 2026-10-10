@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e6f1ff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141833" media="(prefers-color-scheme: dark)">
+<title>Aniimo Element Matchups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1:#e3efff; --bg2:#eef9e6;
+  --panel:#ffffff; --panel2:#f3f7ff;
+  --ink:#1e2547; --muted:#66709a; --line:#d9e2f5;
+  --good:#13804a; --good-bg:#e2f6e9;
+  --bad:#cf3442; --bad-bg:#fde6e9;
+  --neutral-bg:#eef2fb;
+  --focus:#5b6cff;
+  --shadow:0 10px 24px -14px rgba(40,60,140,.45);
+  --prism:conic-gradient(from 200deg,#ff7a3d,#ffd23f,#9be15d,#1fb7a6,#48b8e8,#2f7cf6,#7b5cf0,#ff6fb5,#ff7a3d);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg1:#131733; --bg2:#1b1f42;
+    --panel:#1f2449; --panel2:#272d58;
+    --ink:#f1f3ff; --muted:#a3aad2; --line:#343c70;
+    --good:#62e295; --good-bg:#17392b;
+    --bad:#ff7d87; --bad-bg:#42202f;
+    --neutral-bg:#252b55;
+    --focus:#9aa6ff;
+    --shadow:0 12px 26px -14px rgba(0,0,0,.75);
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{background:var(--bg2)}
+body{
+  min-height:100vh;
+  font-family:"Baloo 2",ui-rounded,"SF Pro Rounded",system-ui,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(120% 50% at 85% -10%,color-mix(in srgb,#fff 60%,transparent),transparent 60%),
+    linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 100%);
+  -webkit-tap-highlight-color:transparent;
+  line-height:1.35;
+}
+@media (prefers-color-scheme: dark){
+  body{background:
+    radial-gradient(1.5px 1.5px at 12% 8%,#fff8,transparent),
+    radial-gradient(1px 1px at 70% 4%,#fff6,transparent),
+    radial-gradient(1.5px 1.5px at 88% 14%,#fff7,transparent),
+    radial-gradient(1px 1px at 40% 12%,#fff5,transparent),
+    linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 100%);}
+}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:12px}
+
+.wrap{max-width:540px;margin:0 auto;padding:18px 16px calc(32px + env(safe-area-inset-bottom))}
+
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:14px}
+h1{font-size:1.7rem;line-height:1;margin:0;font-weight:800;letter-spacing:-.01em}
+h1 small{display:block;font-size:.95rem;font-weight:600;color:var(--muted);letter-spacing:0;margin-top:6px}
+.clear{
+  appearance:none;border:0;background:var(--panel);box-shadow:var(--shadow);
+  padding:6px 14px;border-radius:999px;font-weight:700;font-size:.9rem;cursor:pointer;flex:none
+}
+.clear:disabled{opacity:.45;cursor:default}
+
+/* ---------- gem badges ---------- */
+.gem{
+  --s:44px;
+  position:relative;display:inline-block;flex:none;vertical-align:middle;
+  width:var(--s);height:calc(var(--s) * 1.15);
+  filter:drop-shadow(0 3px 3px color-mix(in srgb,var(--c) 40%,transparent));
+}
+.gem i{
+  position:absolute;inset:0;
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  background:linear-gradient(165deg,var(--c2) 0%,var(--c) 62%,color-mix(in srgb,var(--c) 75%,#000) 100%);
+}
+.gem i::before{ /* inner facet */
+  content:"";position:absolute;inset:9%;
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  background:linear-gradient(165deg,rgba(255,255,255,.38),rgba(255,255,255,0) 55%);
+}
+.gem svg{position:absolute;left:23%;top:23%;width:54%;height:54%;color:var(--ik,#fff);overflow:visible}
+.gem.sm{--s:20px;filter:none}
+.gem.md{--s:40px}
+.gem.lg{--s:68px}
+
+/* ---------- crest (hero) ---------- */
+.crest{
+  position:relative;border-radius:26px;padding:18px 16px 16px;
+  border:3px solid transparent;
+  background:linear-gradient(var(--panel),var(--panel)) padding-box,var(--prism) border-box;
+  box-shadow:var(--shadow);
+}
+.slots{display:flex;align-items:center;justify-content:center;gap:14px}
+.slot{width:110px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.slot .name{font-weight:800;font-size:1.05rem;line-height:1}
+.slot .hint{font-weight:600;font-size:.88rem;color:var(--muted);line-height:1}
+.slot .empty{width:68px;height:78px;display:grid;place-items:center;color:var(--muted)}
+.slot .empty svg{grid-area:1/1;width:100%;height:100%}
+.slot .empty b{grid-area:1/1;font-size:1.4rem;font-weight:700}
+.plus{font-size:1.6rem;font-weight:800;color:var(--muted);margin-bottom:22px}
+.slot .gem{animation:pop .32s cubic-bezier(.3,1.6,.6,1)}
+@keyframes pop{from{transform:scale(.4) rotate(-12deg);opacity:0}}
+@media (prefers-reduced-motion: reduce){.slot .gem{animation:none}}
+
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.stat{border-radius:16px;padding:8px 10px;display:flex;align-items:center;gap:10px}
+.stat b{font-size:1.9rem;font-weight:800;line-height:1}
+.stat span{font-weight:600;font-size:.92rem;line-height:1.15}
+.stat.bad{background:var(--bad-bg);color:var(--bad)}
+.stat.good{background:var(--good-bg);color:var(--good)}
+.crest-msg{margin:12px 0 0;text-align:center;color:var(--muted);font-weight:600}
+
+/* ---------- picker ---------- */
+.panel{background:var(--panel);border-radius:22px;padding:14px;margin-top:14px;box-shadow:var(--shadow)}
+.panel h2{font-size:1.05rem;font-weight:800;margin:0 0 10px;display:flex;justify-content:space-between;align-items:baseline}
+.panel h2 span{font-size:.85rem;font-weight:600;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pick{
+  appearance:none;position:relative;cursor:pointer;
+  border:2px solid transparent;border-radius:18px;background:var(--panel2);
+  padding:10px 4px 6px;min-height:92px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  font-weight:700;font-size:.92rem;line-height:1;
+  transition:transform .1s ease,background-color .15s ease,border-color .15s ease;
+}
+.pick:active{transform:scale(.95)}
+.pick[aria-pressed="true"]{
+  border-color:var(--c);
+  background:color-mix(in srgb,var(--c) 15%,var(--panel));
+}
+.pick .n{
+  position:absolute;top:6px;right:8px;width:20px;height:20px;border-radius:50%;
+  background:var(--c);color:var(--ik,#fff);font-size:.75rem;font-weight:800;
+  display:none;place-items:center;line-height:1
+}
+.pick[aria-pressed="true"] .n{display:grid}
+
+/* ---------- tabs ---------- */
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;margin-top:14px;border-radius:999px;background:var(--panel);box-shadow:var(--shadow)}
+.tabs button{
+  appearance:none;border:0;cursor:pointer;border-radius:999px;padding:10px 8px;
+  background:transparent;color:var(--muted);font-weight:700;font-size:1rem;
+  display:flex;align-items:center;justify-content:center;gap:6px
+}
+.tabs button svg{width:18px;height:18px}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--panel)}
+
+/* ---------- results ---------- */
+.results{margin-top:14px}
+.group-title{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.05rem;margin:18px 4px 8px}
+.group-title:first-child{margin-top:0}
+.tier{
+  display:grid;grid-template-columns:66px 1fr;gap:12px;align-items:center;
+  padding:10px;border-radius:18px;background:var(--neutral-bg);margin-top:8px
+}
+.tier.bad{background:var(--bad-bg)}
+.tier.good{background:var(--good-bg)}
+.mult{
+  background:var(--panel);border-radius:14px;padding:10px 0;text-align:center;
+  font-weight:800;font-size:1.15rem;line-height:1;font-variant-numeric:tabular-nums;color:var(--muted)
+}
+.tier.bad .mult{color:var(--bad)}
+.tier.good .mult{color:var(--good)}
+.tier-title{font-weight:700;font-size:.92rem;margin-bottom:6px;color:var(--muted)}
+.tier.bad .tier-title{color:var(--bad)}
+.tier.good .tier-title{color:var(--good)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{
+  display:inline-flex;align-items:center;gap:5px;padding:3px 10px 3px 5px;border-radius:999px;
+  background:var(--panel);font-weight:700;font-size:.9rem;line-height:1.2;white-space:nowrap
+}
+.note{font-size:.88rem;color:var(--muted);font-weight:500;margin:12px 4px 0}
+.blank{text-align:center;color:var(--muted);font-weight:600;padding:18px 8px;margin:0}
+
+/* ---------- chart ---------- */
+details summary{
+  cursor:pointer;list-style:none;font-weight:800;font-size:1.05rem;
+  display:flex;justify-content:space-between;align-items:center
+}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"";width:10px;height:10px;border-right:3px solid var(--muted);border-bottom:3px solid var(--muted);transform:rotate(45deg) translate(-3px,-3px);transition:transform .2s}
+details[open] summary::after{transform:rotate(225deg) translate(-3px,-3px)}
+.tbl-wrap{overflow-x:auto;margin-top:12px;-webkit-overflow-scrolling:touch}
+table{border-collapse:separate;border-spacing:3px;width:100%;text-align:center;font-weight:800}
+th{padding:2px 0}
+td{border-radius:8px;height:30px;font-size:.8rem;background:var(--neutral-bg);color:var(--muted)}
+td.up{background:var(--good-bg);color:var(--good)}
+td.down{background:var(--bad-bg);color:var(--bad)}
+td.hl,th.hl .gem{outline:2px solid var(--focus);outline-offset:-2px}
+th.hl .gem{outline:none;filter:drop-shadow(0 0 4px var(--focus))}
+.legend{font-size:.85rem;color:var(--muted);font-weight:600;margin-top:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+footer{font-size:.82rem;color:var(--muted);text-align:center;margin-top:20px;font-weight:500}
+</style>
+</head>
+<body>
+
+<!-- Original element icon set -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-Fire" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12.6 2.2c.6 3.2 4.9 5.3 4.9 10.6a5.5 5.5 0 0 1-11 0c0-2.6 1.3-4.3 2.6-5.5.2 1.9.9 3.1 2.1 3.6-.2-3.2.1-5.8 1.4-8.7z"/>
+      <path fill="var(--c)" opacity=".55" d="M12 21a2.6 2.6 0 0 1-2.6-2.6c0-1.6 1.3-2.4 2.1-3.8.9 1.5 3.1 2.2 3.1 3.8A2.6 2.6 0 0 1 12 21z"/>
+    </symbol>
+    <symbol id="i-Water" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2.5c3.2 4.3 6.3 7.7 6.3 11.4a6.3 6.3 0 0 1-12.6 0c0-3.7 3.1-7.1 6.3-11.4z"/>
+      <path fill="none" stroke="var(--c)" stroke-width="1.8" stroke-linecap="round" opacity=".6" d="M9 14.2a3.2 3.2 0 0 0 2.8 3.3"/>
+    </symbol>
+    <symbol id="i-Grass" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M4.5 19.5C4.2 10.8 9.3 4.8 20 4c.2 10.6-5.6 15.6-15.5 15.5z"/>
+      <path fill="none" stroke="var(--c)" stroke-width="1.8" stroke-linecap="round" opacity=".7" d="M4.8 19.2C8.5 14.6 11.5 11.4 16 8.2M10 13.6l.2-3.4M12.6 11.2l3 .3"/>
+    </symbol>
+    <symbol id="i-Ice" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2.5v19M3.8 7.25l16.4 9.5M3.8 16.75l16.4-9.5"/>
+        <path d="M9.4 3.9 12 6.4l2.6-2.5M9.4 20.1 12 17.6l2.6 2.5M3.9 10.6l3.4-.9-.9-3.5M20.1 13.4l-3.4.9.9 3.5M3.9 13.4l3.4.9-.9 3.5M20.1 10.6l-3.4-.9.9-3.5"/>
+      </g>
+    </symbol>
+    <symbol id="i-Lightning" viewBox="0 0 24 24">
+      <path fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round" d="M14.2 2 4.6 13.6h6.2L9.3 22l10.1-12.2h-6.3L14.2 2z"/>
+    </symbol>
+    <symbol id="i-Earth" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M2.5 20 8.8 8.4l3.4 5.2 2.6-3.6L21.5 20z"/>
+      <path fill="var(--c)" opacity=".45" d="M8.8 8.4 7 20h5.2l0-6.4zM14.8 10l1.2 10h5.5z"/>
+      <circle cx="17.5" cy="5.5" r="1.6" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-Wind" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round">
+        <path d="M2.5 8.5h11a3 3 0 1 0-3-3"/>
+        <path d="M2.5 13h15.5a3 3 0 1 1-3 3"/>
+        <path d="M2.5 17.5h6.5"/>
+      </g>
+    </symbol>
+    <symbol id="i-Light" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M11 1.8 13.3 9l7.2 2.3-7.2 2.3L11 20.8l-2.3-7.2-7.2-2.3L8.7 9z"/>
+      <path fill="currentColor" d="m19 15.5.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9z"/>
+    </symbol>
+    <symbol id="i-Dark" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M14.8 2.6a9.5 9.5 0 1 0 6.6 15.1A8 8 0 0 1 14.8 2.6z"/>
+      <path fill="currentColor" d="m18.5 4.5.6 1.6 1.6.6-1.6.6-.6 1.6-.6-1.6-1.6-.6 1.6-.6z"/>
+    </symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" d="M12 2.8 19.5 6v5.6c0 4.6-3.2 8.4-7.5 9.6-4.3-1.2-7.5-5-7.5-9.6V6z"/>
+    </symbol>
+    <symbol id="i-swords" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/>
+        <path d="M14.5 6.5 18 3h3v3l-3.5 3.5M5 14l4 4M7 17l-3 3M3 19l2 2"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <header>
+    <h1>Element matchups<small>Aniimo type checker</small></h1>
+    <button class="clear" id="clear" type="button">Clear</button>
+  </header>
+
+  <section class="crest" aria-live="polite">
+    <div class="slots">
+      <div class="slot" id="slot0"></div>
+      <span class="plus" aria-hidden="true">+</span>
+      <div class="slot" id="slot1"></div>
+    </div>
+    <div id="crestInfo"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Choose elements <span>up to 2</span></h2>
+    <div class="grid" id="picker"></div>
+  </section>
+
+  <div class="tabs" role="tablist" aria-label="View">
+    <button role="tab" id="tab-def" aria-selected="true" type="button"><svg aria-hidden="true"><use href="#i-shield"/></svg>Defending</button>
+    <button role="tab" id="tab-atk" aria-selected="false" type="button"><svg aria-hidden="true"><use href="#i-swords"/></svg>Attacking</button>
+  </div>
+
+  <section class="panel results" id="results" role="tabpanel"></section>
+
+  <section class="panel">
+    <details>
+      <summary>Full type chart</summary>
+      <div class="tbl-wrap"><table id="chart"></table></div>
+      <div class="legend">Rows attack, columns defend. Green ×1.6, red ×0.625, blank ×1.</div>
+    </details>
+  </section>
+
+  <footer>Dual types multiply, so two weaknesses make ×2.56. No immunities. Community-sourced chart; check the in-game Counters panel if a matchup looks off.</footer>
+</div>
+
+<script>
+const ELEMENTS = [
+  { k:'Fire',      c:'#f0602a', c2:'#ffb35c' },
+  { k:'Water',     c:'#2470e8', c2:'#6fcbff' },
+  { k:'Grass',     c:'#249b4f', c2:'#a3e45c' },
+  { k:'Ice',       c:'#2394cc', c2:'#b6eeff' },
+  { k:'Lightning', c:'#e0a400', c2:'#fff07a', ik:'#4a3200' },
+  { k:'Earth',     c:'#94582a', c2:'#dcab66' },
+  { k:'Wind',      c:'#14a394', c2:'#9af3d6' },
+  { k:'Light',     c:'#e88a00', c2:'#fff4b8', ik:'#5c3500' },
+  { k:'Dark',      c:'#5536c9', c2:'#b08bff' },
+];
+const E = Object.fromEntries(ELEMENTS.map(e => [e.k, e]));
+const KEYS = ELEMENTS.map(e => e.k);
+
+// Attacker -> strong against (x1.6) / resisted by (x0.625). Anything else is x1.
+const CHART = {
+  Dark:      { s:['Grass','Light','Lightning'], w:['Water','Wind'] },
+  Earth:     { s:['Fire','Ice'],                w:['Dark','Earth','Grass','Water'] },
+  Fire:      { s:['Grass','Ice'],               w:['Earth','Fire','Light','Water'] },
+  Grass:     { s:['Earth','Water'],             w:['Fire','Grass','Light'] },
+  Ice:       { s:['Lightning','Water'],         w:['Earth','Fire','Ice'] },
+  Light:     { s:['Dark','Wind'],               w:['Light','Lightning'] },
+  Lightning: { s:['Water','Wind'],              w:['Earth','Ice','Lightning'] },
+  Water:     { s:['Earth','Fire'],              w:['Grass','Ice','Light','Water'] },
+  Wind:      { s:['Dark','Grass'],              w:['Lightning','Wind'] },
+};
+const UP = 1.6, DOWN = 0.625;
+const mult = (a, d) => CHART[a].s.includes(d) ? UP : CHART[a].w.includes(d) ? DOWN : 1;
+const fmt = n => String(+n.toFixed(3));
+
+let sel = [];
+let tab = 'def';
+let lastSel = null;
+
+(function restore(){
+  try {
+    sel = decodeURIComponent(location.hash.slice(1)).split('+').filter(k => E[k]).slice(0, 2);
+  } catch (e) { sel = []; }
+})();
+
+/* ---------- building blocks ---------- */
+const vars = k => `--c:${E[k].c};--c2:${E[k].c2};${E[k].ik ? `--ik:${E[k].ik};` : ''}`;
+const gem = (k, size = 'md') =>
+  `<span class="gem ${size}" style="${vars(k)}" aria-hidden="true"><i></i><svg><use href="#i-${k}"/></svg></span>`;
+const chip = k => `<span class="chip" style="${vars(k)}">${gem(k, 'sm')}${k}</span>`;
+const tier = (title, cls, m, list) => !list.length ? '' : `
+  <div class="tier ${cls}">
+    <div class="mult">×${fmt(m)}</div>
+    <div><div class="tier-title">${title}</div><div class="chips">${list.map(chip).join('')}</div></div>
+  </div>`;
+const emptyHex = n => `
+  <span class="empty"><svg viewBox="0 0 68 78" aria-hidden="true">
+    <polygon points="34,2 66,20.5 66,57.5 34,76 2,57.5 2,20.5" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5" opacity=".6"/>
+  </svg><b>${n}</b></span>`;
+
+/* ---------- picker ---------- */
+const picker = document.getElementById('picker');
+picker.innerHTML = ELEMENTS.map(e => `
+  <button class="pick" type="button" data-k="${e.k}" style="${vars(e.k)}" aria-pressed="false">
+    <span class="n"></span>${gem(e.k)}<span>${e.k}</span>
+  </button>`).join('');
+
+picker.addEventListener('click', ev => {
+  const b = ev.target.closest('.pick'); if (!b) return;
+  const k = b.dataset.k;
+  if (sel.includes(k)) sel = sel.filter(x => x !== k);
+  else { sel.push(k); if (sel.length > 2) sel.shift(); }
+  render();
+});
+document.getElementById('clear').onclick = () => { sel = []; render(); };
+document.getElementById('tab-def').onclick = () => { tab = 'def'; render(); };
+document.getElementById('tab-atk').onclick = () => { tab = 'atk'; render(); };
+
+/* ---------- calculations ---------- */
+function defenseBuckets(){
+  const b = {};
+  KEYS.forEach(a => {
+    const m = sel.reduce((p, d) => p * mult(a, d), 1);
+    (b[m.toFixed(4)] ||= []).push(a);
+  });
+  return m => b[m.toFixed(4)] || [];
+}
+function coverage(){
+  const best = d => Math.max(...sel.map(a => mult(a, d)));
+  return { hit: KEYS.filter(d => best(d) === UP), walled: KEYS.filter(d => best(d) === DOWN) };
+}
+
+/* ---------- renderers ---------- */
+function renderCrest(){
+  const key = sel.join('+');
+  if (key !== lastSel) {
+    [0, 1].forEach(i => {
+      const k = sel[i];
+      document.getElementById('slot' + i).innerHTML = k
+        ? `${gem(k, 'lg')}<span class="name">${k}</span>`
+        : `${emptyHex(i + 1)}<span class="hint">${i === 0 ? 'Element' : 'Optional'}</span>`;
+    });
+    lastSel = key;
+  }
+  const info = document.getElementById('crestInfo');
+  if (!sel.length) { info.innerHTML = `<p class="crest-msg">Tap an element below to start.</p>`; return; }
+
+  let bad, good, badLabel, goodLabel;
+  if (tab === 'def') {
+    const get = defenseBuckets();
+    bad = get(UP * UP).length + get(UP).length;
+    good = get(DOWN * DOWN).length + get(DOWN).length;
+    badLabel = bad === 1 ? 'weakness' : 'weaknesses';
+    goodLabel = good === 1 ? 'resistance' : 'resistances';
+  } else {
+    const c = coverage();
+    good = c.hit.length; bad = c.walled.length;
+    goodLabel = good === 1 ? 'element it hits hard' : 'elements it hits hard';
+    badLabel = bad === 1 ? 'element resists it' : 'elements resist it';
+  }
+  const goodBox = `<div class="stat good"><b>${good}</b><span>${goodLabel}</span></div>`;
+  const badBox  = `<div class="stat bad"><b>${bad}</b><span>${badLabel}</span></div>`;
+  info.innerHTML = `<div class="stats">${tab === 'def' ? badBox + goodBox : goodBox + badBox}</div>`;
+}
+
+function renderDefense(){
+  const get = defenseBuckets();
+  return `
+    ${tier('Takes double weakness from', 'bad', UP * UP, get(UP * UP))}
+    ${tier('Weak to', 'bad', UP, get(UP))}
+    ${tier('Resists', 'good', DOWN, get(DOWN))}
+    ${tier('Strongly resists', 'good', DOWN * DOWN, get(DOWN * DOWN))}
+    ${tier('Neutral', '', 1, get(1))}
+    <p class="note">Damage this Aniimo takes from skills of each element.</p>`;
+}
+
+function renderAttack(){
+  let html = sel.map(a => `
+    <div class="group-title">${gem(a, 'sm')}${a} skills</div>
+    ${tier('Strong against', 'good', UP, CHART[a].s)}
+    ${tier('Resisted by', 'bad', DOWN, CHART[a].w)}
+    ${mult(a, a) === 1 ? `<p class="note">${a} against ${a} is neutral.</p>` : ''}`).join('');
+  if (sel.length === 2) {
+    const c = coverage();
+    html += `<div class="group-title">Both elements together</div>
+      ${tier('At least one hits hard', 'good', UP, c.hit)}
+      ${tier('Both are resisted', 'bad', DOWN, c.walled)}`;
+  }
+  return html + `<p class="note">A skill's own element sets the damage, not the Aniimo's type.</p>`;
+}
+
+function renderChart(){
+  const colHl = d => sel.includes(d) && tab === 'def';
+  const rowHl = a => sel.includes(a) && tab === 'atk';
+  const head = `<tr><th><span class="sr">Attacker</span></th>${KEYS.map(d =>
+    `<th class="${colHl(d) ? 'hl' : ''}" title="${d}">${gem(d, 'sm')}<span class="sr">${d}</span></th>`).join('')}</tr>`;
+  const body = KEYS.map(a => `<tr><th class="${rowHl(a) ? 'hl' : ''}" title="${a}">${gem(a, 'sm')}<span class="sr">${a}</span></th>${KEYS.map(d => {
+      const m = mult(a, d);
+      const hl = (rowHl(a) || colHl(d)) ? ' hl' : '';
+      return m === UP ? `<td class="up${hl}">1.6</td>`
+           : m === DOWN ? `<td class="down${hl}">.63</td>`
+           : `<td class="${hl.trim()}"></td>`;
+    }).join('')}</tr>`).join('');
+  document.getElementById('chart').innerHTML = head + body;
+}
+
+function render(){
+  document.querySelectorAll('.pick').forEach(b => {
+    const i = sel.indexOf(b.dataset.k);
+    b.setAttribute('aria-pressed', i >= 0);
+    b.querySelector('.n').textContent = i >= 0 ? i + 1 : '';
+  });
+  document.getElementById('clear').disabled = !sel.length;
+  document.getElementById('tab-def').setAttribute('aria-selected', tab === 'def');
+  document.getElementById('tab-atk').setAttribute('aria-selected', tab === 'atk');
+
+  renderCrest();
+  document.getElementById('results').innerHTML = sel.length
+    ? (tab === 'def' ? renderDefense() : renderAttack())
+    : `<p class="blank">Pick one or two elements to see their matchups.</p>`;
+  renderChart();
+
+  try {
+    history.replaceState(null, '', sel.length ? '#' + sel.join('+') : location.pathname + location.search);
+  } catch (e) {}
+}
+render();
+</script>
+</body>
+</html>
