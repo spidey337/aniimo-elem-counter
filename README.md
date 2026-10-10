@@ -2,7 +2,7 @@
 
 A mobile-first web tool for checking elemental matchups in **Aniimo**. Pick one or two elements to see what they're weak to, what they resist, and what their skills hit hard.
 
-**Live site:** [LINK_HERE](LINK_HERE)
+**Live site:** [https://spidey337.github.io/aniimo-elem-counter/](https://spidey337.github.io/aniimo-elem-counter/)
 
 ## Features
 
